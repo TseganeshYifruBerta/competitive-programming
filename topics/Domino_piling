@@ -1,0 +1,3 @@
+def domino_piling(n,m):
+    return (n*m)//2
+#print(domino_piling(n,m))
