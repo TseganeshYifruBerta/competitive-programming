@@ -1,3 +1,6 @@
 def domino_piling(n,m):
     return (n*m)//2
-#print(domino_piling(n,m))
+n=int(input("insert number of rows"))
+m=int(input("insert number of columns"))
+D_max=domino_piling(n,m)
+print(D_max)
