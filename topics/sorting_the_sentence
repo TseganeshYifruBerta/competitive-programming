@@ -1,0 +1,13 @@
+class Solution:
+    def sortSentence(self, s: str) -> str:
+        R=[None]*len(s)
+        l=s.split()
+        for i in range(len(l)):
+            n=int(l[i][len(l[i])-1])
+            R[n-1]=l[i][:-1]
+        count = 0
+        for i in range(len(R)):
+            if(R[i] != None):
+                count += 1
+        e=R[:count]
+        return ' '.join([str(elem) for elem in e])
