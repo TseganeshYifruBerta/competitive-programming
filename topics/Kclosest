@@ -1,0 +1,18 @@
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        l=[]
+        for i in range(len(points)):
+            n=(points[i][0])**2+(points[i][1])**2
+            l.append(n)
+        ans = []
+        for i in range(len(points)-1):
+            cur_min=i
+            for j in range(i+1,len(points)):
+                if l[cur_min]>l[j]:
+                    cur_min=j
+            points[cur_min],points[i]= points[i],points[cur_min]
+            ans.append(points[i])
+            l[cur_min],l[i]=l[i],l[cur_min]
+            if i==k-1:
+                break
+        return ans
