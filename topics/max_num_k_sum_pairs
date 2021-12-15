@@ -1,0 +1,14 @@
+class Solution:
+    def maxOperations(self, nums: List[int], k: int) -> int:
+        counter=0
+        for i in range(len(nums)):
+            c=0
+            for j in range(1,len(nums)):
+                if j>len(nums)-1:
+                    break
+                if (nums[c]+nums[j])==k:
+                    counter+=1
+                    nums.pop(j)
+                    nums.pop(c)
+        return counter
+        
