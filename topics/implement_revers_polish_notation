@@ -1,0 +1,16 @@
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        n=['+','-','/','*']
+        lst=[]
+        for i in range (len(tokens)):
+            if tokens[i] in n:
+                t = lst[-2]+tokens[i]+lst[-1]
+                temp=int(eval(t))
+                lst.pop()
+                lst.pop()
+                lst.append(str(temp))
+
+            else:
+                lst.append(tokens[i])
+        return int(lst[0])
+        
