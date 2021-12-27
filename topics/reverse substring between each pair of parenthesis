@@ -1,0 +1,18 @@
+class Solution:
+    def reverseParentheses(self, s: str) -> str:
+        temp=[]
+        l=[]
+        for i in s:
+            if i!=")":
+                l.append(i)
+            elif i==")":
+                while l[-1]!="(":
+                    
+                    temp.append(l[-1])
+                    l.pop()
+                l.pop()
+                for i in range(len(temp)):
+                    l.append(temp[i])
+                temp.clear()
+        return "".join(l)
+        
