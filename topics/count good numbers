@@ -1,0 +1,16 @@
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        if n==0:
+            return 1
+        elif n==1:
+            return x
+        else:
+            c=(x*x)%1000000007
+            if n%2!=0:
+                return self.myPow(c,n//2)*self.myPow(x,1)
+            return self.myPow(c,n//2)
+    def countGoodNumbers(self, n: int) -> int:
+        if n==1:
+            return 5
+        return self.myPow(5,n-(n//2))%1000000007* self.myPow(4,(n//2))%1000000007
+        
