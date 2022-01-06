@@ -1,0 +1,20 @@
+class Solution:
+    def findKthBit(self, n: int, k: int) -> str:
+        temp=["0"]
+        i=0
+        
+        while i<=(n):
+            t=""
+            for j in temp[-1]:
+                if j=="0":
+                    t+="1"
+                elif j=="1":
+                    t+="0"
+            m="".join(t[::-1])
+            temp.append(temp[-1]+"1"+m)
+            i+=1
+        for i in range(len(temp[-1])):
+            if i==(k-1):
+                return temp[-1][i]
+            
+        
