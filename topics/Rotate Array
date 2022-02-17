@@ -1,0 +1,15 @@
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead
+        .
+        """
+        c=-1
+        n = len(nums)
+        for i in range(k%n):
+            nums.insert(0,nums[c])
+            c-=1
+        for i in range(k%n):
+            nums.pop()
+       
+        
