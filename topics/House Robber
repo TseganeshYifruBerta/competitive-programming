@@ -1,0 +1,30 @@
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        d={}
+        def helper(n):
+            if n==len(nums)-1:
+                return nums[n]
+            if n==len(nums)-2:
+                return max(nums[n],nums[n+1])
+            if n not in d:
+                d[n]=max(nums[n]+helper(n+2),helper(n+1))
+            return d[n]
+        
+        return helper(0)
+        
+        
+        
+        
+        
+        
+        
+#         if len(nums)==1:
+#             return nums[0]
+#         if len(nums)==2:
+#             return max(nums)
+#         for i in range(len(nums),-3,-1):
+#             if i+2 < len(nums):
+#                 nums[i]=nums[i]+nums[i+2]
+#                 nums[i+1]=max(nums[i+1],nums[i+2])
+#         return max(nums[0],nums[1])
+        
