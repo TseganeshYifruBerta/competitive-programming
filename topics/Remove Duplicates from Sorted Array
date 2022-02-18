@@ -1,0 +1,16 @@
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        c=0
+        for i in range(len(nums)):
+            if nums[i] in nums[:i]:
+                nums[i]="_"
+                c+=1
+        for i in range(c):
+            nums.remove("_")
+        
+        print(nums)
+                    
+    
+                
+            
+        
