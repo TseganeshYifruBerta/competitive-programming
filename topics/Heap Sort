@@ -1,0 +1,60 @@
+
+#User function Template for python3
+
+class Solution:
+    #Heapify function to maintain heap property.
+    def heapify(self,arr, n, i):
+        # code here
+        self.heapUp(arr,n,i)
+        self.heapDown(arr,n,i)
+    
+    #Function to build a Heap from array.
+    def buildHeap(self,arr,n):
+        # code here
+        for i in range(len(arr)):
+            self.heapUp(arr,n,i)
+    def heapUp(self,arr,n,i):
+        if i==0:
+            return
+        parent=self.parent(i)
+        if arr[i]<arr[parent]:
+            arr[i],arr[parent]=arr[parent],arr[i]
+            self.heapUp(arr,n,parent)
+    def heapDown(self,arr,n,i):
+        if self.leftChild(i)>=n:
+            return
+        midPos=self.leftChild(i)
+        if self.rightChild(i)<n:
+            if arr[self.rightChild(i)]<arr[midPos]:
+                midPos=self.rightChild(i)
+        if arr[i]>arr[midPos]:
+            arr[i],arr[midPos]=arr[midPos],arr[i]
+            self.heapDown(arr,n,midPos)
+    #Function to sort an array using Heap Sort.    
+    def HeapSort(self, arr, n):
+        #code here
+        self.buildHeap(arr,n)
+        for i in range(len(arr)):
+            # print(arr)
+            self.remove(0,arr,n-i)
+        arr.reverse()
+    def getMin(self,arr):
+        return arr[0]
+    def insert(self,arr,element,n):
+        arr.append(element)
+        self.heapUp(arr,n-1,n)
+    def remove(self,index,arr,n):
+        arr[index],arr[n-1]=arr[n-1],arr[index]
+        self.heapify(arr,n-1,index)
+        
+    def update(self,index,arr,n,val):
+        arr[index]=val
+        self.heapify(arr,n,index)
+    def leftChild(self,index):
+        return (2*index) + 1
+    def rightChild(self,index):
+        return (2*index) + 2
+    def parent(self,index):
+        if index==0:
+            return 0
+        return (index-1)//2    
