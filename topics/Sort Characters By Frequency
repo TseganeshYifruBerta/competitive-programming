@@ -1,0 +1,16 @@
+class Solution:
+    def frequencySort(self, s: str) -> str:            
+        count=Counter(s)
+        lst = []
+        for k, v in count.items():
+            lst.append((-v, k))
+        heapq.heapify(lst)
+        lisst= []
+        while len(lst) > 0:
+            tup = heapq.heappop(lst)
+            lisst.append((-tup[0]) * tup[1])
+        return "".join(lisst)
+            
+        
+        
+        
