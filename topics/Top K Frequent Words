@@ -1,0 +1,14 @@
+class Solution:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        count=Counter(words)
+        print(count)
+        lst=[]
+        for key,v in count.items():
+            lst.append((-v,key))
+        heapq.heapify(lst)
+        lisst=[]
+        for i in range(k):
+            popped=heapq.heappop(lst)
+            lisst.append(popped[1])
+        return lisst
+        
