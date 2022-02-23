@@ -1,0 +1,36 @@
+from collections import defaultdict, Counter
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count=Counter(nums)
+        num=[]
+        for key,val in count.items():
+            num.append((-val,key))
+        heapq.heapify(num)
+        lst=[]
+        for i in range(k):
+            popped=heapq.heappop(num)
+            lst.append(popped[1])
+        return lst
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+            
+            
+            
+        
+        
+        
