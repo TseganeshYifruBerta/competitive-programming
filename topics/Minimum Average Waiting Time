@@ -1,0 +1,53 @@
+#!/bin/python3
+import heapq
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'minimumAverage' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts 2D_INTEGER_ARRAY customers as parameter.
+#
+
+def minimumAverage(customers):
+    # Write your code here
+    # print(customers)
+    customers.sort()
+    heap = []
+    total_time = cur_idx = curr_time = 0
+    
+    while cur_idx < len(customers) or heap :
+        if not len(heap):
+            heapq.heappush(heap, (customers[cur_idx][1], customers[cur_idx][0]))
+            curr_time = customers[cur_idx][0]
+            cur_idx += 1
+            
+        waiting, time = heapq.heappop(heap)
+        cur_waiting = curr_time + waiting - time 
+        total_time += cur_waiting 
+        curr_time += waiting
+        while cur_idx < len(customers) and customers[cur_idx][0] < curr_time:
+            heapq.heappush(heap, (customers[cur_idx][1], customers[cur_idx][0]))
+            cur_idx += 1
+    
+    return total_time // len(customers)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    customers = []
+
+    for _ in range(n):
+        customers.append(list(map(int, input().rstrip().split())))
+
+    result = minimumAverage(customers)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
