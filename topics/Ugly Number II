@@ -1,0 +1,19 @@
+class Solution:
+    def nthUglyNumber(self, n: int) -> int:
+        answer=0
+        counter=0
+        lst=[1]
+        l=set()
+        while counter!=n:
+            if lst[0]!=answer:
+                counter+=1
+                answer=lst[0]
+                heapq.heappush(lst,lst[0]*2)
+                heapq.heappush(lst,lst[0]*3)
+                heapq.heappush(lst,lst[0]*5)
+            heapq.heappop(lst)
+        return answer
+            
+            
+            
+        
