@@ -1,0 +1,11 @@
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        heapq.heapify(matrix)
+        for i in range(k):
+            temp = heapq.heappop(matrix)
+            minn = temp.pop(0)
+            
+            if len(temp)>=1:
+                heapq.heappush(matrix,temp)
+        return minn
+                
