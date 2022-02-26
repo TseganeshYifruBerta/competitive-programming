@@ -1,0 +1,20 @@
+inputt = int(input())
+arr = input().split()
+for i in range(len(arr)):
+    arr[i] = int(arr[i])
+n = int(input())
+arr.sort()
+ 
+for i in range(n):
+    left=0
+    right =len(arr)-1
+    a=int(input())
+    res = 0
+    while left<=right:
+        mid = (left+right)//2
+        if a<arr[mid]:
+            right =mid-1
+        elif a>=arr[mid]:
+            res=mid+1
+            left = mid+1
+    print(res)
