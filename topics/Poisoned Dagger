@@ -1,0 +1,31 @@
+n=int(input())
+ 
+for i in range(n):
+    maxx=input().split()
+    maxx = int(maxx[1])
+    arr=input().split()
+    for i in range(len(arr)):
+        arr[i]=int(arr[i])
+    left = 1
+    right = maxx
+    while left <= right :
+        mid = (left+right)//2
+        total = 0
+        for i in range(len(arr)):
+            if i+1 < len(arr):
+                if arr[i+1]-arr[i]<=mid:
+                    total+=(arr[i+1]-arr[i])
+                else:
+                    total+=mid
+            else:
+                total+=mid
+    
+        if total < maxx:
+            left = mid + 1
+        elif total >= maxx :
+            k = mid
+            right = mid - 1
+        if total == maxx:
+            break
+    print(k)
+        
