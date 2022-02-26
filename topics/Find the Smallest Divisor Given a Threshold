@@ -1,0 +1,36 @@
+class Solution:
+    def smallestDivisor(self, nums: List[int], threshold: int) -> int:
+        nums.sort()
+        # lst=[]
+        # for i in range(nums[-1]+1):
+        #     lst.append(i)
+            
+        left = 1
+        right = nums[-1]
+        # res = 1
+        while left<=right:
+            mid = ((left)+(right-left)//2)
+            # if mid!= 0:
+            if math.ceil(nums[-1]/mid) <= threshold :
+                total=0
+                for i in nums:
+                    total+=math.ceil(i/mid)
+                if total <= threshold:
+                    res = mid
+                    right = mid-1
+                else :
+                    left = mid+1
+            elif math.ceil(nums[-1]/mid) > threshold :
+                left = mid+1
+            else:
+                return res
+        return res
+            
+        
+        # left = 0
+        # right = len(nums)-1
+        # mid =((left)+(right-left)//2)
+        # while math.ceil((nums[-1])/nums[mid]) > threshold :
+        #     mid =((left)+(right-left)//2)
+        #     left = nums[mid]
+        #     print(left)
