@@ -1,0 +1,49 @@
+class TopVotedCandidate:
+
+    def __init__(self, persons: List[int], times: List[int]):
+        self.persons=persons
+        self.times=times
+        self.lst=[]
+        self.count={}
+        maxx=float(-inf)
+        
+        for i in range(len(self.persons)):
+            if self.persons[i] not in self.count:
+                self.count[self.persons[i]]=1
+                if self.count[self.persons[i]] >=maxx:
+                    maxx=self.count[self.persons[i]]
+                    self.lst.append(self.persons[i])
+                else:
+                    self.lst.append(self.lst[-1])
+            elif self.persons[i] in self.count:
+                self.count[self.persons[i]]+=1
+                if self.count[self.persons[i]] >=maxx:
+                    maxx=self.count[self.persons[i]]
+                    self.lst.append(self.persons[i])
+                else:
+                    self.lst.append(self.lst[-1])
+    def q(self, t: int) -> int:
+        left = 0
+        right = len(self.times)-1
+        res=self.persons[0]
+        while left<=right:
+            mid = (left + right)//2
+            if self.times[mid]>t:
+                right = mid-1
+                res= mid
+            elif self.times[mid]<t:
+                left = mid+1
+                if mid==len(self.lst)-1:
+                    res=mid
+            else:
+                res=mid
+                break 
+        if self.times[res]>t:
+            return self.lst[res-1]
+        return self.lst[res]
+        
+
+
+# Your TopVotedCandidate object will be instantiated and called as such:
+# obj = TopVotedCandidate(persons, times)
+# param_1 = obj.q(t)
