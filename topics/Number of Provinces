@@ -1,0 +1,21 @@
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        def DFS(row,isConnected,visited):
+            if row in visited:
+                return 
+            visited.add(row)
+            for i in range(len(isConnected[row])):
+                if isConnected[row][i]==1:
+                    DFS(i,isConnected,visited)
+        visited = set()
+        counter = 0
+        for i in range(len(isConnected)):
+            if i not in visited:
+                counter +=1
+                DFS(i,isConnected,visited)
+            
+        return counter
+                    
+                    
+                
+        
