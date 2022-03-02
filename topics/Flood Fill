@@ -1,0 +1,126 @@
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        visited = set()
+        self.dfs(image, sr, sc, newColor, visited)
+        return image
+        # dirs = ((0, 1), (0, -1), (1, 0), (-1, 0))
+        # old_color = image[sr][sc]
+        # stack = [[sr, sc, 0]]
+        # while stack:
+        #     cx, cy, ci = stack[-1]
+        #     image[cx][cy] = newColor
+        #     if ci > 3:
+        #         stack.pop()
+        #         continue
+        #     nx = dirs[ci][0] + cx
+        #     ny = dirs[ci][1] + cy
+        #     stack[-1][2] += 1
+        #     if (0 <= nx < len(image) and 
+        #         0 <= ny < len(image[0]) and 
+        #         image[nx][ny] == old_color):
+        #         stack.append([nx, ny, 0])
+        # return image
+        
+    def dfs(self, image, sr, sc, new_color, visited):
+        if (sr, sc) in visited:
+            return
+        visited.add((sr, sc))
+        dirs = ((0, 1), (0, -1), (1, 0), (-1, 0))
+        old_color = image[sr][sc]
+        image[sr][sc] = new_color
+        for dx, dy in dirs:
+            nx = sr + dx
+            ny = sc + dy
+            if (0 <= nx < len(image) and 
+                0 <= ny < len(image[0]) and 
+                image[nx][ny] == old_color):
+                self.dfs(image, nx, ny, new_color, visited)
+        return
+            
+        
+#          def dfs(self, image, current_row, current_col, removedColor, newColor):
+#         image[current_row][current_col] = newColor
+#         for d in range(len(self.DIR)-1):
+#             new_row, new_col = current_row + self.DIR[d], current_col + self.DIR[d+1]
+#             if not self.in_bound(new_row, new_col) or image[new_row][new_col] != removedColor:
+#                 continue
+#             self.dfs(image, new_row, new_col, removedColor, newColor)
+        
+        
+        
+#     def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+#         self.DIR = (1, 0, -1, 0, 1)
+#         self.in_bound = lambda row, col: 0 <= row < len(image) and 0 <= col < len(image[0])
+#         removedColor = image[sr][sc]
+#         if removedColor != newColor:
+#             self.dfs(image, sr, sc, removedColor, newColor)
+#         print(image)
+# Solution().floodFill([[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2)   
+
+
+
+
+
+
+# 2
+#         sr = 1, sc = 1, newColor = 2
+# 3
+#         [1,1,1]
+# 4
+#         [1,1,0]
+# 5
+#         [1,0,1]
+# 6
+#         [2, 2, 2], 
+# 7
+#         [2, 2, 0], 
+# 8
+#         [2, 0, 1]
+# 9
+        
+# 10
+# """
+# 11
+# from typing import List
+# 12
+# class Solution:
+# 13
+#     def dfs(self, image, current_row, current_col, removedColor, newColor):
+# 14
+#         image[current_row][current_col] = newColor
+# 15
+#         for d in range(len(self.DIR)-1):
+# 16
+#             new_row, new_col = current_row + self.DIR[d], current_col + self.DIR[d+1]
+# 17
+#             if not self.in_bound(new_row, new_col) or image[new_row][new_col] != removedColor:
+# 18
+#                 continue
+# 19
+#             self.dfs(image, new_row, new_col, removedColor, newColor)
+# 20
+        
+# 21
+        
+# 22
+        
+# 23
+#     def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+# 24
+#         self.DIR = (1, 0, -1, 0, 1)
+# 25
+#         self.in_bound = lambda row, col: 0 <= row < len(image) and 0 <= col < len(image[0])
+# 26
+#         removedColor = image[sr][sc]
+# 27
+#         if removedColor != newColor:
+# 28
+#             self.dfs(image, sr, sc, removedColor, newColor)
+# 29
+#         print(image)
+# 30
+        
+# 31
+# Solution().floodFill([[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2)     
+# 32
+        
