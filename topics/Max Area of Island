@@ -1,0 +1,32 @@
+class Solution(object):
+    def __init__(self, maxx = 0, count = 0):
+        self.maxx = 0
+        self.count = 0
+    def maxAreaOfIsland(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        dirs = [(0, 1), (1, 0),(-1, 0),(0, -1)]
+        def dfs(row, col):
+            if grid[row][col] == 0:
+                return
+            grid[row][col] = 0
+            self.count += 1
+            self.maxx = max(self.maxx, self.count)
+            for dx, dy in dirs:
+                nx = dx + row
+                ny = dy + col
+                if 0 <= nx < len(grid) and \
+                    0 <= ny < len(grid[0]) and \
+                        grid[nx][ny] == 1:
+                    dfs(nx, ny)
+        for row in range(len(grid)):
+            for col in range(len(grid[0])):
+                if grid[row][col] == 1:
+                    self.count = 0
+                    dfs(row, col)
+        return self.maxx
+            
+                
+        
