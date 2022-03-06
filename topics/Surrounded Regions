@@ -1,0 +1,43 @@
+class Solution(object):
+    def solve(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: None Do not return anything, modify board in-place instead.
+        """
+        dirs = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+        def dfs(row, col):
+            if board[row][col] == "X":
+                return
+            board[row][col] = "T"
+            
+            
+            for r_add, c_add in dirs:
+                new_r , new_c = row + r_add , col + c_add
+                if 0 <= new_r < len(board) and \
+                 0 <= new_c < len(board[0]) and \
+                  board[new_r][new_c] == "O":
+                    dfs(new_r, new_c)
+                    
+                    
+        for row in range(len(board)):
+            for col in range(len(board[row])):
+                if (row == len(board) - 1 or\
+                  col == len(board[row]) - 1 or \
+                    row == 0 or col == 0) and board[row][col] == "O":
+                    dfs(row, col)
+                    
+                    
+        for row in range(len(board)):
+            for col in range(len(board[row])):
+                if board[row][col] == "T":
+                    board[row][col] = "O"
+                elif board[row][col] == "O":
+                    board[row][col] = "X"
+        return board
+                    
+                
+                    
+                
+            
+                
+        
