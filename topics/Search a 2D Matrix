@@ -5,32 +5,17 @@ class Solution(object):
         :type target: int
         :rtype: bool
         """
-        def bs_matrix():
-            left = 0
-            right = len(matrix) - 1
-            while left <= right :
-                mid = (left + right) // 2
-                if matrix[mid][0] <= target <= matrix[mid][-1] :
-                    return matrix[mid]
-                elif matrix[mid][0] > target :
-                    right = mid - 1
-                elif matrix[mid][0] < target :
-                    left = mid + 1
-            return -1
-        def bs(lst):
-            left = 0
-            right = len(lst) - 1
-            while left <= right:
-                mid = (left + right) // 2
-                if lst[mid] > target :
-                    right = mid - 1
-                elif lst[mid] < target :
-                    left = mid + 1
-                else:
-                    return True 
-            return False
-        lst = bs_matrix()
-        if type(lst) != list:
-            return False
-        return bs(lst)
-        
+        left = 0
+        col = len(matrix[0])
+        right = ((len(matrix) - 1)* col) + (col - 1)
+        while left <= right:
+            mid = (left + right) // 2
+            x , y = mid // col, mid % col
+            midElement = matrix[x][y]
+            if midElement < target:
+                left = mid + 1
+            elif midElement > target :
+                right = mid - 1
+            else:
+                return True 
+        return False
