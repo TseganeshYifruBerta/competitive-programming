@@ -1,0 +1,38 @@
+class Solution(object):
+    def updateBoard(self, board, click):
+        """
+        :type board: List[List[str]]
+        :type click: List[int]
+        :rtype: List[List[str]]
+        """
+        dirs = [(0, 1), (0, -1), (-1, 0), (1, 0), (-1, -1), (1, 1), (-1, 1), (1, -1)]
+        
+        def dfs(row, col):
+            count = 0
+            for r_add , c_add in dirs:
+                new_r = row + r_add
+                new_c = col + c_add
+                if 0 <= new_r < len(board) and \
+                   0 <= new_c < len(board[row]) and \
+                    board[new_r][new_c] == "M":
+                    count += 1
+            
+            if count != 0:
+                board[row][col] = str(count)
+                return 
+            board[row][col] = "B"
+            for r_add , c_add in dirs:
+                new_r = row + r_add
+                new_c = col + c_add
+                if 0 <= new_r < len(board) and \
+                   0 <= new_c < len(board[row]) and \
+                    board[new_r][new_c] == "E":
+                    dfs(new_r, new_c)
+        row = click[0]
+        col = click[1]
+        if board[row][col] == "M":
+            board[row][col] = "X"
+            return board
+        elif board[row][col] == "E":
+            dfs(row, col)
+            return board
