@@ -1,0 +1,36 @@
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        def pivotFinder():
+            left = 0
+            right = len(nums) - 1
+            while left <= right :
+                mid = (left + right) // 2
+                if nums[mid] > nums[mid + 1]:
+                    return mid
+                elif nums[mid] < nums[-1] :
+                    right = mid - 1
+                elif nums[mid] > nums[-1] :
+                    left = mid + 1
+        def bs(start, end):
+            left = start
+            right = end
+            while left <= right :
+                mid = (left + right) // 2
+                if nums[mid] < target :
+                    left = mid + 1
+                elif nums[mid] > target :
+                    right = mid -1
+                else :
+                    return mid
+            return -1
+        if nums[0] <= nums[-1] :
+            return bs(0, len(nums) - 1)
+        else :
+            p = pivotFinder()
+            if nums[0] <= target <= nums[p] :
+                return bs(0, p)
+            elif nums[p + 1] <= target <= nums[-1]:
+                return bs (p + 1, len(nums) - 1)
+            else :
+                 return -1
+        
