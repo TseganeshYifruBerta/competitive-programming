@@ -1,0 +1,24 @@
+class Solution(object):
+    def canReach(self, arr, start):
+        """
+        :type arr: List[int]
+        :type start: int
+        :rtype: bool
+        """
+        q = collections.deque([(start,arr[start])])
+        visited = set()
+        while q:
+            index, val = q.popleft()
+            if (index, val) not in visited :
+                visited.add((index, val))
+            if val == 0 :
+                return True
+            if index + val < len(arr) and \
+                (index + val, arr[index + val]) not in visited:
+                visited.add((index + val, arr[ index + val]))
+                q.append((index + val, arr[index + val]))
+            if index - val >= 0 and \
+                (index - val, arr[index - val]) not in visited:
+                visited.add((index - val, arr[ index - val]))
+                q.append((index - val, arr[index - val]))
+        return False
