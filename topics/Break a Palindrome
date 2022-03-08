@@ -1,0 +1,28 @@
+class Solution(object):
+    def breakPalindrome(self, palindrome):
+        """
+        :type palindrome: str
+        :rtype: str
+        """
+        def isPalindrome(string):
+            p1 = 0
+            p2 = len(string) - 1
+            while p1 <= p2 :
+                if string[p1] != string[p2] :
+                    return False
+                p1 += 1
+                p2 -= 1
+            return True
+        if len(palindrome) == 1 :
+            return ""
+        for i in range(len(palindrome)):
+            if ord(palindrome[i]) > 97:
+                ans = palindrome[:i] + chr(97) + palindrome[i + 1:]
+                if isPalindrome(ans) == True:
+                    continue
+                else:
+                    return ans
+            elif i == len(palindrome) - 1:
+                ans = ans = palindrome[:i] + chr(98) + palindrome[i + 1:]
+                return ans
+        return ""
