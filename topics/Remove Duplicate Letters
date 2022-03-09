@@ -1,0 +1,37 @@
+class Solution(object):
+    def removeDuplicateLetters(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        d = {}
+        seen = set()
+        for i in range(len(s)):
+            if s[i] in d :
+                d[s[i]] = i
+            else:
+                d[s[i]] = i
+        stack = []
+        for i in range(len(s)) :
+            while stack and s[i] not in seen and \
+                stack[-1][0] > s[i] and \
+                    d[stack[-1][0]] > stack[-1][1] and \
+                        i < d[stack[-1][0]]:
+                seen.remove(stack[-1][0])
+                stack.pop()
+            if s[i] not in seen:
+                seen.add(s[i])
+                stack.append((s[i], i))
+        st = ""
+        for val, i in stack :
+            st += val
+        return st
+                
+        
+                    
+                
+                    
+        
+                
+            
+        
