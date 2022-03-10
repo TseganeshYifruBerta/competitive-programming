@@ -1,0 +1,21 @@
+class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        dirs = [(0, 1), (1, 0)]
+        self.dp = {}
+        def helper(row, col) :
+            if row == len(grid) - 1 and \
+                    col == len(grid[row]) - 1 :
+                return grid[row][col]
+            if (row, col) not in self.dp :
+                lst = []
+                for r_add, c_add in dirs :
+                    new_r = row + r_add
+                    new_c = col + c_add
+                    if 0 <= new_c < len(grid[row]) and \
+                        0 <= new_r < len(grid) :
+                        lst.append(grid[row][col] + helper(new_r, new_c))
+                self.dp[(row, col)] = min(lst)
+            return self.dp[(row, col)]
+        return helper(0, 0)
+                
+        
