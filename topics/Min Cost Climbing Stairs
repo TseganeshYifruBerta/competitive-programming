@@ -1,0 +1,12 @@
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        dp = {}
+        def helper(index):
+            if index >= len(cost) - 2:
+                return cost[index]
+            if index not in dp :
+                dp[index] = min(cost[index] + helper(index + 1), cost[index] + helper(index + 2))
+            return dp[index]
+        return min(helper(0), helper(1))
+            
+        
