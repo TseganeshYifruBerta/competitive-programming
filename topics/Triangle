@@ -1,0 +1,11 @@
+class Solution:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        self.dp = {}
+        def helper(row, col):
+            if row == len(triangle) - 1:
+                return triangle[row][col]
+            if (row, col) not in self.dp :
+                self.dp[(row,col)] = min(triangle[row][col] + helper(row + 1, col),
+                                   triangle[row][col] + helper(row + 1, col + 1))
+            return self.dp[(row, col)]
+        return helper(0, 0)
