@@ -1,0 +1,23 @@
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        mul = 1
+        lst = []
+        for i in nums :
+            if i != 0 :
+                mul *= i
+        count = nums.count(0)
+        if count > 1 :
+            for i in range(len(nums)) :
+                lst.append(0)
+        elif count == 1:
+            for i in range(len(nums)) :
+                if nums[i] == 0 :
+                    lst.append(mul)
+                else :
+                    lst.append(0)
+        else :
+            for i in nums :
+                lst.append(mul//i)
+        
+        return lst
+                
