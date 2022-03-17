@@ -1,0 +1,31 @@
+class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        p1 = 0
+        p2 = 0
+        consumed = 0
+        count = 0
+        maxx = 0
+        while p2 < len(nums) :
+            while p2 < len(nums):
+                if nums[p2] == 1 :
+                    count += 1
+                if nums[p2] == 0 and consumed < k:
+                    count += 1
+                    consumed += 1
+                elif consumed == k and nums[p2] == 0:
+                    break
+                p2 += 1
+            maxx = max(maxx, count)
+            if p1 < len(nums):
+                if nums[p1] == 0:
+                    consumed -= 1
+                    count -= 1
+                    p1 += 1
+                else:
+                    count -= 1
+                    p1 += 1
+        return maxx
+                
+                
+                
+         
