@@ -1,0 +1,20 @@
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        if len(chars) == 1 :
+            return 1
+        p2 = 0
+        counter = 0
+        while p2 < len(chars) :
+            count = 1
+            temp = chars[p2]
+            p2 += 1
+            while p2 < len(chars) and chars[p2] == temp :
+                count += 1
+                chars.pop(p2)
+            if count > 1 :
+                count = str(count)
+                for i in count :
+                    chars.insert(p2, i)
+                    p2 += 1
+        return len(chars)
+                
