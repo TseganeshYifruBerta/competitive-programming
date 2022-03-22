@@ -1,0 +1,22 @@
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        d = {}
+        for i in range(len(s)) :
+            if s[i] in d :
+                d[s[i]].append(i)
+            else :
+                d[s[i]] = [i]
+        lst = []
+        p = 0
+        minn = float('inf')
+        maxx = float('-inf')
+        while p < len(s) :
+            minn = d[s[p]][0]
+            maxx = d[s[p]][-1]
+            while p < len(s) and d[s[p]][0] <= maxx :
+                if maxx < d[s[p]][-1] :
+                    maxx = d[s[p]][-1] 
+                p += 1
+            lst.append(maxx - minn + 1)
+        return lst
+        
