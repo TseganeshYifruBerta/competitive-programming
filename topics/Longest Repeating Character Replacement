@@ -1,0 +1,19 @@
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        p1 = 0
+        p2 = 0
+        maxx = 1
+        length = 1
+        d = defaultdict(int)
+        while p2 < len(s) :
+            d[s[p2]] += 1
+            maxx = max(maxx, d[s[p2]])
+            
+            if ((p2 - p1 + 1) - maxx) > k:
+                d[s[p1]] -= 1
+                p1 += 1
+                
+            length = max(length, p2 - p1 + 1)
+            p2 += 1
+        return length   
+        
