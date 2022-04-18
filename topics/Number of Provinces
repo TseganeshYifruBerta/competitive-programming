@@ -15,6 +15,39 @@ class Solution:
                 DFS(i,isConnected,visited)
             
         return counter
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        root = [i for i in range(len(isConnected))]
+        d = {}
+        for i in range(len(isConnected)):
+            d[i] = 1
+        def find(r):
+            if root[r] == r:
+                return r
+            root[r] = find(root[r])
+            return root[r]
+        def union(row, col):
+            rootRow = find(row)
+            rootCol = find(col)
+            if rootRow != rootCol:
+                if d[rootRow] > d[rootCol]:
+                    root[rootCol] = rootRow
+                elif d[rootRow] > d[rootCol]:
+                    root[rootRow] = rootCol
+                else:
+                    root[rootCol] = rootRow
+                    d[rootRow] += 1
+        for row in range(len(isConnected)):
+            for col in range(len(isConnected[row])):
+                if isConnected[row][col] == 1 and row != col and root[row] != root[col]:
+                    union(row, col)
+        # sett = set(root)
+        ans = 0
+        for i in range(len(root)):
+            if root[i] == i:
+                ans += 1
+        return ans
+                    
                     
                     
                 
