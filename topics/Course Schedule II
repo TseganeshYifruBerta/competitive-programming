@@ -1,0 +1,24 @@
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        q = deque([])
+        incoming = {i:0 for i in range(numCourses)}
+        
+        graph = {i:[] for i in range(numCourses)}
+        for i in range(len(prerequisites)):
+            incoming[prerequisites[i][0]] += 1
+            graph[prerequisites[i][1]].append(prerequisites[i][0])
+        for k in incoming:
+            if incoming[k] == 0:
+                q.append(k)
+        lst = []
+        while q:
+            curr = q.popleft()
+            lst.append(curr)
+            temp = graph[curr]
+            for i in temp:
+                incoming[i] -= 1
+                if incoming[i] == 0:
+                    q.append(i)
+        if numCourses == len(lst):
+            return lst
+        return []
