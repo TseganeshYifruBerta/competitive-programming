@@ -1,0 +1,22 @@
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        q = deque([])
+        incoming = {i:0 for i in range(numCourses)}
+        
+        graph = {i:[] for i in range(numCourses)}
+        for i in range(len(prerequisites)):
+            incoming[prerequisites[i][0]] += 1
+            graph[prerequisites[i][1]].append(prerequisites[i][0])
+        for k in incoming:
+            if incoming[k] == 0:
+                q.append(k)
+        count = 0
+        while q:
+            curr = q.popleft()
+            count += 1
+            temp = graph[curr]
+            for i in temp:
+                incoming[i] -= 1
+                if incoming[i] == 0:
+                    q.append(i)
+        return count == numCourses
