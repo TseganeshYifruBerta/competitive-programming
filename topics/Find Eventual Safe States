@@ -1,0 +1,26 @@
+class Solution:
+    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
+        q = deque([])
+        d = defaultdict(list)
+        dic = defaultdict(int)
+        lst = []
+        for i in range(len(graph)):
+            dic[i] += len(graph[i])
+        for i in range(len(graph)):
+            for j in range(len(graph[i])):
+                d[graph[i][j]].append(i)
+            if len(graph[i]) == 0:
+                q.append(i)
+        while q:
+            current = q.popleft()
+            lst.append(current)
+            for i in range(len(d[current])):
+                dic[d[current][i]] -= 1
+                if dic[d[current][i]] == 0:
+                    q.append(d[current][i])
+        lst.sort()
+        return lst
+                    
+                
+                
+            
