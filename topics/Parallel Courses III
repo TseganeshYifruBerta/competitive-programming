@@ -1,0 +1,25 @@
+class Solution:
+    def minimumTime(self, n: int, relations: List[List[int]], time: List[int]) -> int:
+        q = []
+        dirs = defaultdict(list)
+        d = {}
+        for i in range(1, n + 1):
+            d[i] = 0
+        for n1 , n2 in relations:
+            dirs[n1].append(n2)
+            d[n2] += 1
+        for i in d:
+            if d[i] == 0:
+                heappush(q,(time[i - 1],i))
+        while q:
+            t, course = heappop(q)
+            for i in dirs[course]:
+                d[i] -= 1
+                if d[i] == 0:
+                    heappush(q,(t + time[i - 1],i))
+        return t
+                
+            
+        
+            
+        
