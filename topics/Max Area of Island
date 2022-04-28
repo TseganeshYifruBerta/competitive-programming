@@ -70,7 +70,58 @@ class Solution:
         if count == True:
             return 0
         return res
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        dicts = {}
+        rank = {}
+        
+        for row in range(len(grid)):
+            for col in range(len(grid[row])):
+                dicts[(row, col)] = (row, col)
+                rank[(row, col)] = 1
+        def find(x):
+            if dicts[x] == x:
+                return x
+            dicts[x] = find(dicts[x])
+            return dicts[x]
+        def union(first_e, second_e):
+            first = find(first_e)
+            second = find(second_e)
+            if first != second:
+                if rank[first] >= rank[second]:
+                    dicts[second] = first
+                    rank[first] += rank[second]
+                    rank[second] = 1
+                else:
+                    dicts[first] = second
+                    rank[second] += rank[first]
+                    rank[first] = 1
+        d = [(0,1), (1, 0), (-1, 0), (0, -1)]
+        count = True
+        for row in range(len(grid)):
+            for col in range(len(grid[0])):
+                if grid[row][col] == 1:
+                    count = False
+                    for r_add, c_add in d:
+                        new_r = r_add + row
+                        new_c = c_add + col
+                        if 0 <= new_r < len(grid) and \
+                        0 <= new_c < len(grid[0]) and \
+                        grid[new_r][new_c] == 1:
+                            union((row, col), (new_r, new_c))
+        res = max(list(rank.values()))
+        if count == True:
+            return 0
+        return res
                         
+                    
+                
+                    
+                
+            
+        
+                    
+                       
                     
                 
                     
