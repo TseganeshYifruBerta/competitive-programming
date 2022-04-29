@@ -1,0 +1,46 @@
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.isWord = False
+class Solution:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        d = {}
+        
+        def insert(root, word):
+            current = root
+            for c in word:
+                if c not in current.children:
+                    current.children[c] = TrieNode()
+                    current = current.children[c]
+                else:
+                    current = current.children[c]
+            current.isWord = True
+        def search(root, word):
+            current = root
+            for c in range(len(word)):
+                if word[c] not in current.children:
+                    d[word] = 1
+                    insert(current, word[c:len(word)])
+                    return 
+                current = current.children[word[c]]
+            if current.isWord:
+                d[word] += 1
+            else:
+                d[word] = 1
+        root = TrieNode()
+        for word in words:
+            search(root, word)
+        lst = []
+        for word in d:
+            lst.append((word, d[word]))
+        lst.sort(key = lambda x : (-x[1], x[0]))
+        result = []
+        for i in range(k):
+            result.append(lst[i][0])
+        return result
+            
+        
+                    
+                    
+            
+        
