@@ -1,0 +1,84 @@
+class TrieNode():
+    def __init__(self):
+        self.children = {}
+        self.isWord = False
+class Solution:
+    def longestWord(self, words: List[str]) -> str:
+            
+        def insert(root, word):
+            cur = root
+            flag = True
+            for c in word:
+                if c not in cur.children:
+                    cur.children[c] = TrieNode()
+                if not cur.isWord:
+                    flag = False
+                cur = cur.children[c]
+                 
+            cur.isWord = True
+            return flag
+        
+        root = TrieNode()
+        root.isWord = True
+        
+        ans = ''
+        words.sort()
+        for word in words:
+            flag = insert(root, word)
+            if(flag):
+                if(len(word) > len(ans)):
+                    ans = word
+                
+        return ans
+        
+   class TrieNode():
+    def __init__(self):
+        self.children = {}
+        self.isWord = False
+        self.wordSoFar = ''
+class Solution:
+    def longestWord(self, words: List[str]) -> str:
+        self.maxx = 0
+        self.ans = ""
+        def dfs(root, count):
+            if not root.isWord:
+                if count - 1 > self.maxx:
+                    self.ans = root.wordSoFar[:len(root.wordSoFar) - 1]
+                elif count - 1 == self.maxx:
+                    if(root.wordSoFar < self.ans):
+                        self.ans = root.wordSoFar[:len(root.wordSoFar) - 1]
+                self.maxx = max(self.maxx, count - 1)
+                return 
+            if len(root.children) == 0:
+                if count > self.maxx:
+                    self.ans = root.wordSoFar
+                elif count == self.maxx:
+                    if(root.wordSoFar < self.ans):
+                        self.ans = root.wordSoFar
+                self.maxx = max(self.maxx, count)
+                return 
+            for i in root.children:
+                dfs(root.children[i], count + 1)
+                
+            return
+            
+            
+        def insert(root, word):
+            cur = root
+            strr = ''
+            for c in word:
+                if c not in cur.children:
+                    cur.children[c] = TrieNode()
+                    
+                cur = cur.children[c]
+                strr += c
+                cur.wordSoFar = strr 
+                 
+            cur.isWord = True
+        root = TrieNode()
+        root.isWord = True
+        for word in words:
+            insert(root, word)
+        dfs(root, 0)
+        return self.ans
+                 
