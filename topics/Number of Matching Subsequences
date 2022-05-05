@@ -1,0 +1,63 @@
+class TrieNode():
+    def __init__(self):
+        self.children = {}
+        self.ch =  None
+        self.isWord = False
+        self.count = 0
+class Solution:
+    def numMatchingSubseq(self, s: str, words: List[str]) -> int:
+        self.count = 0
+        self.d = defaultdict(list)
+        for c in range(len(s)):
+            self.d[s[c]].append(c)
+        def bs(child, index):
+            left = 0
+            right = len(self.d[child.ch]) - 1
+            ans = -2
+            while left <= right:
+                mid = (left + right) // 2
+                if self.d[child.ch][mid] < index:
+                    left = mid + 1
+                    ans = left
+                elif self.d[child.ch][mid] > index:
+                    right = mid - 1
+                else:
+                    return self.d[child.ch][mid]
+            if ans < 0:
+                ans = 0
+            if(left < len(self.d[child.ch])):
+                return self.d[child.ch][ans]
+            return -2
+        
+        
+        def dfs(root, index):
+            flag = -1
+            if index != -1:
+                if root.ch not in self.d:
+                    return
+                flag = bs(root, index)
+                if flag == -2:
+                    return
+                else:
+                    if root.isWord:
+                        self.count += root.count
+            for child in root.children:
+                dfs(root.children[child], flag + 1)
+        def insert(root, word):
+            current = root
+            for c in word:
+                if c not in current.children:
+                    current.children[c] = TrieNode()
+                current = current.children[c]
+                current.ch = c
+            current.isWord = True
+            current.count += 1
+        root = TrieNode()
+        for word in words:
+            insert(root,word)
+        dfs(root, -1)
+        return self.count
+        
+            
+        
+        
