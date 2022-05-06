@@ -1,0 +1,30 @@
+class TrieNode():
+    def __init__(self):
+        self.children = {}
+        self.isWord = False
+        
+class Solution:
+    def minimumLengthEncoding(self, words: List[str]) -> int:
+        lst = []
+        for i in words:
+            lst.append((len(i), i))
+        lst.sort()
+        lst.reverse()
+        self.count = 0
+        def insert(root, word):
+            current = root
+            flag = True
+            for c in range(len(word) - 1, -1, -1):
+                if word[c] not in current.children:
+                    flag = False
+                    current.children[word[c]] = TrieNode()
+                current = current.children[word[c]]
+            current.isWord = True
+            if not flag:
+                self.count += len(word) + 1
+        root = TrieNode()
+        
+        for word in lst:
+            insert(root, word[1])
+        return self.count
+        
