@@ -1,0 +1,26 @@
+class Solution:
+    def findMinDifference(self, timePoints: List[str]) -> int:
+        p1 = 0
+        p2 = 1
+        minn = float('+inf')
+        timePoints.sort()
+        while p2 < len(timePoints):
+            firstHour = int(timePoints[p2][:2])
+            firstMin = int(timePoints[p2][3:])
+            secondHour = int(timePoints[p1][:2])
+            secondMin = int(timePoints[p1][3:])
+            Min = 60 * (firstHour - secondHour) + (firstMin - secondMin)
+                
+            minn = min(Min, minn)
+            p2 += 1
+            p1 += 1
+        first = timePoints[0]
+        f_hour = int(first[:2]) + 23
+        f_min = int(first[3:]) + 60
+        second = timePoints[-1]
+        Min = 60 * (f_hour - int(second[:2]) ) + (f_min-int(second[3:]))
+        minn = min(Min , minn)
+        return minn
+                                      
+            
+        
