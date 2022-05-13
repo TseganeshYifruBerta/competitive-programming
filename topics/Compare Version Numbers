@@ -1,0 +1,26 @@
+class Solution:
+    def compareVersion(self, version1: str, version2: str) -> int:
+        ver_one = version1.split('.')
+        ver_two = version2.split('.')
+        
+        if len(ver_one) < len(ver_two):
+            l = len(ver_two) - len(ver_one)
+            for i in range(l):
+                ver_one.append('0')
+        if len(ver_one) > len(ver_two):
+            l = len(ver_one) - len(ver_two)
+            for i in range(l):
+                ver_two.append('0')
+                
+                
+        p = 0
+        while p < len(ver_one) and int(ver_one[p]) == int(ver_two[p]):
+            p += 1
+        if p < len(ver_one):
+            if int(ver_one[p]) > int(ver_two[p]):
+                return 1
+            else:
+                return -1
+        else:
+            return 0
+            
