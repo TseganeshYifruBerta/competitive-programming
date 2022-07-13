@@ -1,0 +1,53 @@
+class Solution:
+    def countUnguarded(self, m: int, n: int, guards: List[List[int]], walls: List[List[int]]) -> int:
+        dirs = [(0, 1, "r"), (1, 0, "d"), (-1, 0, "u"), (0, -1, "l")]
+        lst = []
+        visited = set()
+        for i in range(m):
+            temp = [0] * n
+            lst.append(temp)
+        def check(row, col):
+            if 0 <= row < len(lst) and 0 <= col < len(lst[0]):
+                return True
+            return False
+        
+        
+        def helper(pos, row, col):
+            if not check(row, col):
+                return 
+            if lst[row][col] == "W" or lst[row][col] == "G":
+                return 
+            
+            if pos == "r":
+                helper(pos, row, col + 1)
+            elif pos == "u":
+                helper(pos, row - 1, col)
+            elif pos == "d":
+                helper(pos, row + 1, col)
+            else:
+                helper(pos, row, col - 1)
+            if check(row, col):
+                    lst[row][col] = "L"
+                
+                
+                
+        for i in guards:
+            lst[i[0]][i[1]] = "G"
+        for i in walls:
+            lst[i[0]][i[1]] = "W"
+        for i in guards:
+            for row, col, pos in dirs:
+                r_add = row + i[0]
+                c_add = col + i[1]
+                if 0 <= r_add < len(lst) and \
+                0 <= c_add < len(lst[0]) and (r_add, c_add) not in visited \
+                and lst[r_add][c_add] != "G" and lst[r_add][c_add] != "W":
+                    helper(pos, r_add, c_add)
+        count = 0
+        for row in range(len(lst)):
+            for col in range(len(lst[0])):
+                if lst[row][col] == 0:
+                    count += 1
+                
+        return count
+            
