@@ -7,3 +7,11 @@ class Solution:
                 count += 1
         return count
         
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        sett = set(nums)
+        count = 1
+        for i in range(len(nums)):
+            if count in sett:
+                count += 1
+        return count
