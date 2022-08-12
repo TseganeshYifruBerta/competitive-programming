@@ -1,19 +1,21 @@
 class Solution:
     def islandPerimeter(self, grid: List[List[int]]) -> int:
+        n, m = len(grid), len(grid[0])
+        def checker(r, c): return 0 <= r < n and 0 <= c < m
         dirs = [(0, 1), (1, 0), (-1, 0), (0, -1)]
         seen = set()
         self.ans = 0
+        
+        
         def dfs(row, col):
             seen.add((row, col))
             for r, c in dirs:
                 new_r = r + row
                 new_c = c + col
-                if not 0 <= new_r < len(grid) or \
-                not 0 <= new_c < len(grid[0]) or grid[new_r][new_c] == 0:
+                if not checker(new_r, new_c) or grid[new_r][new_c] == 0:
                     self.ans += 1
-                if 0 <= new_r < len(grid) and 0 <= new_c < len(grid[0])\
+                if checker(new_r, new_c)\
                 and grid[new_r][new_c] == 1 and (new_r, new_c) not in seen:
-                    
                     dfs(new_r, new_c)
         
         flag= False
