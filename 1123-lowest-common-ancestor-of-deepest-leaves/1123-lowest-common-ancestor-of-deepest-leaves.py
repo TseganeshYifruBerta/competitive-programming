@@ -7,7 +7,7 @@
 class Solution:
     def lcaDeepestLeaves(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         self.ans = None
-        @lru_cache(None)
+        # @lru_cache(None)
         def findheight(root):
             if not root:
                 return 0
