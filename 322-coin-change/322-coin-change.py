@@ -14,4 +14,3 @@ class Solution:
                 return -1
             return count
         return minCoin(amount)
-                
