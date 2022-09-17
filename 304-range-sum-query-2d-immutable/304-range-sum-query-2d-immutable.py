@@ -2,11 +2,12 @@ class NumMatrix:
 
     def __init__(self, matrix: List[List[int]]):
         
-        
+        #horizontal prefix sum
         for row in range(len(matrix)):
             for col in range(1, len(matrix[0])):
                 matrix[row][col] += matrix[row][col - 1]
                 
+        #vertical prefixsum
         p = 0
         while p < len(matrix[0]):
             for row in range(1, len(matrix)):
