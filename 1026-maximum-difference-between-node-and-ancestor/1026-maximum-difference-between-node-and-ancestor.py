@@ -10,17 +10,19 @@ class Solution:
         def helper(root):
             if root.left == root.right:
                 return [root.val, root.val]
-            minn, maxx = inf, -inf
+            
+            minn, maxx, val = inf, -inf, root.val
+            
             if root.left:
-                left = helper(root.left)
-                self.maxx = max(self.maxx, abs(root.val - left[0]), abs(root.val - left[1]))
-                minn = left[0]
-                maxx = left[1]
+                lMin, lMax = helper(root.left)
+                self.maxx = max(self.maxx, abs(val - lMin), abs(val - lMax))
+                minn, maxx = lMin, lMax
+                
             if root.right:
-                right = helper(root.right)
-                self.maxx = max(self.maxx, abs(root.val - right[0]), abs(root.val - right[1]))
-                minn = min(minn, right[0])
-                maxx = max(maxx, right[1])
-            return [min(minn, root.val), max(maxx, root.val)]
+                rMin, rMax = helper(root.right)
+                self.maxx = max(self.maxx, abs(val - rMin), abs(val - rMax))
+                minn, maxx = min(minn, rMin),  max(maxx, rMax)
+                
+            return [min(minn, val), max(maxx, val)]
         helper(root)
         return self.maxx
