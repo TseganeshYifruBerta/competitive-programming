@@ -5,20 +5,16 @@ class Solution:
             files = paths[direc].split()
             
             for file in range(1, len(files)):
-                directories[files[0]].append(files[file])
+                f_name = files[file].split('(')
+                
+                directories[f_name[1]].append(files[0] + '/' + f_name[0])
         
-        file_map = defaultdict(list)
-        for directory in directories:
-            files = directories[directory]
-            for file in files:
-                f = file.split('(')
-                f_name = directory + '/' + f[0]
-                file_map[f[1]].append(f_name)
+     
                 
         ans = []
-        for file in file_map:
-            if len(file_map[file]) > 1:
-                ans.append(file_map[file])
+        for file in directories:
+            if len(directories[file]) > 1:
+                ans.append(directories[file])
         return ans
                 
         
