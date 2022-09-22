@@ -11,6 +11,5 @@ class Solution:
                         dp[row][col] += dp[row + 1][col]
                     if col + 1 < len(obstacleGrid[0]) and obstacleGrid[row][col + 1] == 0:
                         dp[row][col] += dp[row][col + 1]
-        print(dp)
         return dp[0][0]
         
