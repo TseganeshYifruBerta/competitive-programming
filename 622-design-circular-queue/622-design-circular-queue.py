@@ -4,26 +4,25 @@ class MyCircularQueue:
         self.q = []
         self.k = k
     def enQueue(self, value: int) -> bool:
-        if len(self.q) < self.k:
+        if not self.isFull():
             self.q.append(value)
             return True
-        return
-
+        
+        
     def deQueue(self) -> bool:
-        if len(self.q) > 0:
+        if not self.isEmpty():
             self.q.pop(0)
             return True
-        return 
-
+        
+        
     def Front(self) -> int:
-        if len(self.q) == 0:
-            return -1
+        if self.isEmpty(): return -1
         return self.q[0]
         
 
     def Rear(self) -> int:
-        if len(self.q) == 0:
-            return -1
+        if self.isEmpty(): return -1
+        
         return self.q[-1]
 
     def isEmpty(self) -> bool:
