@@ -1,4 +1,3 @@
-from sortedcontainers import SortedList
 class Solution:
     def minCost(self, colors: str, neededTime: List[int]) -> int:
         
@@ -8,7 +7,8 @@ class Solution:
             
             temp, maxx = colors[p], 0
             while p < len(colors) and temp == colors[p]:
-                maxx = max(maxx, neededTime[p])
+                if neededTime[p] > maxx:
+                    maxx = neededTime[p]
                 p += 1
                 
             totalTime += maxx
