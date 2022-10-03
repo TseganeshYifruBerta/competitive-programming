@@ -1,15 +1,18 @@
 from sortedcontainers import SortedList
 class Solution:
     def minCost(self, colors: str, neededTime: List[int]) -> int:
-        p = 0
-        totalTime = 0
+        
+        p, totalTime = 0, 0
+        
         while p < len(colors):
-            temp = colors[p]
-            lst = SortedList([])
+            
+            temp, maxx = colors[p], 0
             while p < len(colors) and temp == colors[p]:
-                lst.add(neededTime[p])
+                maxx = max(maxx, neededTime[p])
                 p += 1
-            if len(lst) > 1:
-                totalTime += sum(lst[:len(lst) - 1])
-        return totalTime
+                
+            totalTime += maxx
+            
+            
+        return sum(neededTime) - totalTime
             
