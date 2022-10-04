@@ -9,15 +9,10 @@ class Solution:
         def pathSum(root, summ):
             if not root: return False
             if root.left == root.right:
-                if summ + root.val == targetSum:
-                    return True
+                if summ + root.val == targetSum: return True
                 return False
             
-            left, right = False, False
-            if root.left:
-                left = pathSum(root.left, summ + root.val)
-            if root.right:
-                right = pathSum(root.right, summ + root.val)
-            return left or right
+            return pathSum(root.left, summ + root.val) or pathSum(root.right, summ + root.val)
+        
         return pathSum(root, 0)
                 
