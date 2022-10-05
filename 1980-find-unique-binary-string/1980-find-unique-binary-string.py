@@ -4,19 +4,17 @@ class Solution:
             if remain == 0:
                 return ['']
             lst = generate(remain - 1)
-            zero = lst.copy()
-            for i in range(len(zero)):
-                zero[i] = zero[i] + '0'
-            one = lst.copy()
-            for i in range(len(one)):
-                one[i] = one[i] + '1'
-            return zero + one
+            l = []
+            for i in range(len(lst)):
+                l.append(lst[i] + '0')
+                l.append(lst[i] + '1')
+            return l
+        
         lst = generate(len(nums[0]))
         sett = set(nums)
         
         for i in lst:
-            if i not in sett:
-                return i
+            if i not in sett: return i
         
         
             
