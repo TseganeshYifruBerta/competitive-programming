@@ -12,16 +12,20 @@ class Solution:
             indegree[a] += 1
         return indegree
     
+    
     def dfs(self, node, graph, quiet, dp):
-        if node in dp:
-            return dp[node]
-        minn = [quiet[node], node]
-        for n in graph[node]:
-            cur = self.dfs(n, graph, quiet, dp)
-            if minn[0] > cur[0]:
-                minn = cur
-        dp[node] = minn
-        return minn
+        
+        if dp[node] == None:
+            minn = [quiet[node], node]
+            
+            for n in graph[node]:
+                cur = self.dfs(n, graph, quiet, dp)
+                if minn[0] > cur[0]:
+                    minn = cur
+                    
+            dp[node] = minn
+            
+        return dp[node]
             
             
     
@@ -29,19 +33,14 @@ class Solution:
         graph = self.buildgraph(richer)
         indegree = self.buildindegree(richer)
         ans = []
-        dp = {}
+        dp = [None] * len(quiet)
         
         for node in range(len(quiet)):
             self.dfs(node, graph, quiet, dp)
                 
                 
-        for node in dp:
-            ans.append((node, dp[node][1]))
-        
-        ans.sort()
-        final = []
-        for idx, node in ans:
-            final.append(node)
-        
-        return final
+        for node in range(len(dp)):
+            dp[node] = dp[node][1]
+            
+        return dp
     
