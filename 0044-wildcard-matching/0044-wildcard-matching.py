@@ -1,24 +1,31 @@
 class Solution:
-    def isMatch(self, s: str, p: str) -> bool:
-        @lru_cache(None)
-        def matchPattern(s_idx, p_idx):
-            if s_idx >= len(s) and p_idx >= len(p):
-                    return True
-            if s_idx >= len(s):
-                for idx in range(p_idx, len(p)):
-                    if p[idx] != "*":
-                        return False
-                return True
-            if p_idx >= len(p):
-                return False
-            if 97 <= ord(s[s_idx]) <= 122 and 97 <= ord(p[p_idx]) <= 122:
-                if s[s_idx] != p[p_idx]:
-                    return False
+    def isMatch(self, st: str, pattern: str) -> bool:
+        cache = {}
 
-            first, second, third = False, False, False
-            if p[p_idx] == "*":
-                first = matchPattern(s_idx, p_idx + 1)
-                second = matchPattern(s_idx + 1, p_idx)
-            third = matchPattern(s_idx + 1, p_idx + 1)
-            return first or second or third
-        return matchPattern(0, 0)
+        def solve(i, j):
+            if (i, j) in cache:
+                return cache[(i, j)]
+            if  i >= len(st) and j >= len(pattern):
+                return True
+            if j >= len(pattern):
+                return False
+            if i >= len(st):
+                if pattern[j] == "*":
+                    cache[(i, j)] = solve(i, j+1)
+                else:
+                    cache[(i, j)] = False
+            elif pattern[j] == "?":
+                cache[(i, j)] = solve(i+1, j+1)
+            elif pattern[j] == "*":
+                option1 = solve(i, j+1) # match empty string
+                option2 = solve(i+1, j+1) # match to any single character
+                option3 = solve(i+1, j) # continue matching to  multiple characters
+                cache[(i, j)] = option1 or option2 or option3
+            else:
+                if pattern[j] == st[i]:
+                    cache[(i, j)] = solve(i+1, j+1)
+                else:
+                    cache[(i, j)] = False
+            return cache[(i, j)]
+
+        return solve(0, 0)
