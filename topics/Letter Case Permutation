@@ -1,0 +1,15 @@
+class Solution:
+    def backtracking(self, idx, string, s, answer):
+        if idx >= len(s):
+            answer.append(string)
+            return 
+        if 65 <= ord(s[idx]) <= 90 or 97 <= ord(s[idx]) <= 122:
+            self.backtracking(idx + 1, string + s[idx].upper(), s, answer)
+            self.backtracking(idx + 1, string + s[idx].lower(), s, answer)
+        else:
+            self.backtracking(idx + 1, string + s[idx], s, answer)
+        return answer
+
+    def letterCasePermutation(self, s: str) -> List[str]:
+        answer = self.backtracking(0, '', s, [])
+        return answer
