@@ -1,16 +1,16 @@
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        c=0
+        pointer = 0
+        while pointer < len(nums):
+            cur = nums[pointer]
+            pointer += 1
+            while pointer < len(nums) and nums[pointer] == cur:
+                nums[pointer] = '_'
+                pointer += 1
+        
+        count = 0
         for i in range(len(nums)):
-            if nums[i] in nums[:i]:
-                nums[i]="_"
-                c+=1
-        for i in range(c):
-            nums.remove("_")
-        
-        print(nums)
-                    
-    
-                
-            
-        
+            if nums[i] != '_':
+                nums[count] = nums[i]
+                count += 1
+        return count
