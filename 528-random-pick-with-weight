@@ -1,0 +1,11 @@
+class Solution:
+
+    def __init__(self, w):
+        self.list = [0] * len(w)
+        s = 0
+        for idx, val in enumerate(w):
+            s += val
+            self.list[idx] = s
+            
+    def pickIndex(self):
+        return bisect_left(self.list, random.randint(1, self.list[-1]))
