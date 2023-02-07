@@ -1,35 +1,23 @@
 class Solution:
     def isRobotBounded(self, instructions: str) -> bool:
-        anticlockwise = ['N', 'W', 'S', 'E']
-        clockwisee = ['N', 'E', 'S', 'W']
-        
-        counterclockwise_ = instructions.count('L')
-        clockwise_ = instructions.count('R')
-        
-        
-        direction = counterclockwise_ % 4
-        direction = (clockwisee.index(anticlockwise[direction]) + clockwise_) % 4
-        
-        
         counter = {
-            (0, 1) : (-1, 0),
-            (-1, 0) : (0, -1),
-            (0, -1) : (1, 0),
-            (1, 0) : (0, 1)
-        }
+            (0, 1) : (-1, 0, 'W'),
+            (-1, 0) : (0, -1, 'S'),
+            (0, -1) : (1, 0, 'E'),
+            (1, 0) : (0, 1, 'N')}
         
         clockwise = {
-            (0, 1) : (1, 0),
-            (1, 0) : (0, -1), 
-            (0, -1) : (-1, 0), 
-            (-1, 0) : (0, 1)
-        }
+            (0, 1) : (1, 0, 'E'),
+            (1, 0) : (0, -1, 'S'), 
+            (0, -1) : (-1, 0, 'W'), 
+            (-1, 0) : (0, 1, 'N')}
         
         position = [0, 0]
-        prev = [0, 1]
+        prev = [0, 1, 'N']
+        
         for inst in instructions:
             x, y = position
-            x_, y_ = prev
+            x_, y_, pos = prev
             if inst == 'G':
                 position = [x_ + x, y_ + y]
                 
@@ -39,7 +27,8 @@ class Solution:
             if inst == 'R':
                 prev = clockwise[(x_, y_)]
                 
-        if position != [0, 0] and clockwisee[direction] == 'N':
+        
+        if position != [0, 0] and prev[2] == 'N':
             return False
         return True
                 
