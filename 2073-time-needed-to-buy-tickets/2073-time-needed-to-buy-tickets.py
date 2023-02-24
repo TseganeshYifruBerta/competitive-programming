@@ -5,8 +5,8 @@ class Solution:
         answer = 0
         
         for i in range(len(tickets)):
-            answer += total
-            saved += max(total - tickets[i], 0)
+            answer += total - max(total - tickets[i], 0)
+            
             if i == k:
                 total -= 1
                 
